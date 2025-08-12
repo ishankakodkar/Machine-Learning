@@ -1,4 +1,40 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# Load the dataset
+dataset = pd.read_csv('google_stock_price.csv')
+
+# For simplicity, we'll predict the next day's Close price based on the current day's Open price
+X = dataset[['Open']]
+y = dataset['Close'].shift(-1) # Shift the close price to get the next day's price
+
+# Drop the last row since it has no corresponding next-day price
+X = X[:-1]
+y = y[:-1]
+
+# Split the dataset into the Training set and Test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+# Training the Simple Linear Regression model on the Training set
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# Predicting the Test set results
+y_pred = regressor.predict(X_test)
+
+# Visualising the results
+plt.figure(figsize=(10,6))
+plt.scatter(X_test, y_test, color = 'red', label='Actual Price')
+plt.plot(X_test, y_pred, color = 'blue', linewidth=2, label='Predicted Price')
+plt.title('Google Stock Price Prediction (Linear Regression)')
+plt.xlabel('Open Price')
+plt.ylabel('Next Day Close Price')
+plt.legend()
+plt.show()
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split

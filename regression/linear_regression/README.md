@@ -1,4 +1,29 @@
-# Linear Regression
+# Linear Regression for Stock Price Prediction
+
+Linear regression is a fundamental algorithm in quantitative finance, often used as a baseline for predicting asset prices. In this example, we'll use it to model the relationship between a stock's past performance and its future price.
+
+## Application in Finance
+
+While simple linear regression has its limitations in the complex world of financial markets, it serves as an excellent starting point for understanding more advanced models. It can be used to:
+
+-   Identify trends in stock prices.
+-   Model the relationship between a stock and a market index (e.g., calculating Beta).
+-   Predict future returns based on historical data or other factors.
+
+## Mathematical Formulation
+
+The core idea is to model the stock price (or its return) as a linear function of one or more predictor variables. For a simple model where we predict tomorrow's price based on today's price, the equation is:
+
+$$ y = \beta_0 + \beta_1 x + \epsilon $$
+
+Where:
+- **y** is the predicted price for the next day.
+- **x** is the price of the stock today.
+- **β₀** and **β₁** are the coefficients determined by the model.
+- **ε** is the error term.
+
+More complex models could include other features like trading volume, moving averages, or macroeconomic indicators.
+
 
 Linear regression is one of the most fundamental algorithms in supervised machine learning. It's used to predict a continuous target variable (like price, temperature, or salary) based on one or more predictor variables.
 

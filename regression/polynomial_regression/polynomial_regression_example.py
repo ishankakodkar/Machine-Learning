@@ -1,4 +1,37 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+
+# Load the dataset
+dataset = pd.read_csv('yield_curve_data.csv')
+X = dataset.iloc[:, 0:1].values
+y = dataset.iloc[:, 1].values
+
+# Create polynomial features
+poly_reg = PolynomialFeatures(degree = 4)
+X_poly = poly_reg.fit_transform(X)
+
+# Fit the Polynomial Regression model
+lin_reg_2 = LinearRegression()
+lin_reg_2.fit(X_poly, y)
+
+# Visualising the Polynomial Regression results
+plt.figure(figsize=(10,6))
+plt.scatter(X, y, color = 'red', label='Actual Yield')
+plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue', label='Fitted Yield Curve')
+plt.title('Yield Curve Modeling (Polynomial Regression)')
+plt.xlabel('Maturity (Years)')
+plt.ylabel('Yield')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Predicting a new result with Polynomial Regression
+yield_prediction = lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))
+print(f"Predicted yield for a 6.5-year maturity: {yield_prediction[0]:.4f}")
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
