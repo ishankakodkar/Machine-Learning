@@ -1,35 +1,34 @@
 # Logistic Regression for Credit Default Prediction
 
-Logistic regression is a cornerstone of credit risk modeling in the financial industry. It is widely used to predict the probability that a borrower will default on a loan. This binary classification problem (default or no-default) is a perfect use case for logistic regression.
+Logistic Regression is a fundamental classification algorithm used to predict a binary outcome (e.g., yes/no, 1/0, true/false). Despite its name, it is used for classification, not regression. In finance, it's a workhorse model for tasks like predicting whether a borrower will default on a loan.
+
+## Mathematical Formulation
+
+Logistic Regression models the probability that an input \( X \) belongs to a particular category. It does this by passing the output of a linear equation through the **Sigmoid function** (or logistic function).
+
+### The Sigmoid Function
+
+The Sigmoid function squashes any real-valued number into a range between 0 and 1, which is perfect for representing a probability. The function is defined as:
+
+\[ \sigma(z) = \frac{1}{1 + e^{-z}} \]
+
+Where \( z \) is the output of the linear model, \( z = \beta_0 + \beta_1 x_1 + \dots + \beta_n x_n \). The output, \( \sigma(z) \), is the predicted probability, \( P(y=1 | X) \).
+
+### Cost Function: Log-Loss (Binary Cross-Entropy)
+
+Unlike linear regression, we cannot use Mean Squared Error (MSE) as the cost function because the Sigmoid function would make it non-convex, leading to problems with optimization. Instead, we use the **Log-Loss** (or Binary Cross-Entropy) cost function, which is defined as:
+
+\[ J(\beta) = -\frac{1}{m} \sum_{i=1}^{m} [y_i \log(\hat{p}_i) + (1 - y_i) \log(1 - \hat{p}_i)] \]
+
+Where:
+-   \( m \) is the number of training examples.
+-   \( y_i \) is the actual label of the i-th example (0 or 1).
+-   \( \hat{p}_i \) is the predicted probability for the i-th example.
+
+This cost function penalizes the model heavily for being confident and wrong. It is convex, ensuring that Gradient Descent can find the optimal set of coefficients (\( \beta \)).
 
 ## Application in Finance
 
-Financial institutions use logistic regression to:
-
--   **Assess Creditworthiness:** Determine the likelihood of a loan applicant defaulting based on their financial history, income, debt, and other factors.
--   **Set Interest Rates:** Price loans by assigning higher interest rates to applicants with a higher predicted probability of default.
--   **Manage Portfolio Risk:** Understand the overall risk profile of a loan portfolio by aggregating the default probabilities of individual loans.
-
-## Model Formulation
-
-The model calculates the probability of default, **P(Default=1)**, using the logistic (sigmoid) function. The input to this function is a linear combination of various borrower attributes (features).
-
-$$ P(\text{Default}) = \frac{1}{1 + e^{-z}} $$
-
-Where **z** is the weighted sum of the features:
-
-$$ z = \beta_0 + \beta_1 \times (\text{Credit Score}) + \beta_2 \times (\text{Income}) + \beta_3 \times (\text{Loan Amount}) + \dots $$
-
-The model learns the coefficients **β** that best separate the defaulters from the non-defaulters in the historical data.
-
-### Cost Function
-
-The cost function for logistic regression is different from that of linear regression because the hypothesis is non-linear (due to the sigmoid function). The cost function for a single training example is:
-
-$$ Cost(h_\theta(x), y) = -y \log(h_\theta(x)) - (1-y) \log(1 - h_\theta(x)) $$
-
-This is also known as the **Log Loss** or **Binary Cross-Entropy** loss. The goal of training is to find the parameters **θ** that minimize this cost function across all training examples.
-
-### Gradient Descent
-
-Similar to linear regression, we use gradient descent to find the optimal parameters. The update rule for the parameters is the same, but the hypothesis **h_θ(x)** is now the sigmoid function.
+-   **Credit Default Prediction:** Predict whether a loan applicant will default or not.
+-   **Market Direction:** Classify whether a stock will go up or down.
+-   **Fraud Detection:** Identify fraudulent transactions.
